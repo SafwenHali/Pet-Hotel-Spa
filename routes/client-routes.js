@@ -1,10 +1,12 @@
 const express = require('express');
-const {addClient
+const {addClient,
+    getAllClients
       } = require('../controllers/clientController');
 
 const router = express.Router();
 
 router.post('/client', addClient);
+router.get('/allclients',getAllClients);
 
 
 module.exports = {

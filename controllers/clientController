@@ -1,11 +1,11 @@
 'use strict';
 
 const firebase = require('../Database');
-const Student = require('../models/client');
-const firestore = firebase.firestore();
+const client = require('../models/client');
+require('firebase/firestore')
+const firestore = firebase.firestore;
 
-
-const addClient = async (req, res, next) => {
+const addClient = async (req, res) => {
     try {
         const data = req.body;
         await firestore.collection('clients').doc().set(data);
@@ -15,44 +15,39 @@ const addClient = async (req, res, next) => {
     }
 }
 
-const getAllStudents = async (req, res, next) => {
+const getAllClients = async (req, res, next) => {
     try {
-        const students = await firestore.collection('students');
-        const data = await students.get();
-        const studentsArray = [];
+        const clients = await firestore.collection('clients');
+        const data = await clients.get();
+        const clientsArray = [];
         if(data.empty) {
-            res.status(404).send('No student record found');
+            res.status(404).send('No client record found');
         }else {
             data.forEach(doc => {
-                const student = new Student(
+                const client = new client(
                     doc.id,
                     doc.data().firstName,
                     doc.data().lastName,
-                    doc.data().fatherName,
-                    doc.data().class,
-                    doc.data().age,
+                    doc.data().birthday,
                     doc.data().phoneNumber,
-                    doc.data().subject,
-                    doc.data().year,
-                    doc.data().semester,
-                    doc.data().status
+                    doc.data().cin,
                 );
-                studentsArray.push(student);
+                clientsArray.push(client);
             });
-            res.send(studentsArray);
+            res.send("aaaa "+clientsArray);
         }
     } catch (error) {
         res.status(400).send(error.message);
     }
 }
-
-const getStudent = async (req, res, next) => {
+/*
+const getclient = async (req, res, next) => {
     try {
         const id = req.params.id;
-        const student = await firestore.collection('students').doc(id);
-        const data = await student.get();
+        const client = await firestore.collection('clients').doc(id);
+        const data = await client.get();
         if(!data.exists) {
-            res.status(404).send('Student with the given ID not found');
+            res.status(404).send('client with the given ID not found');
         }else {
             res.send(data.data());
         }
@@ -61,32 +56,29 @@ const getStudent = async (req, res, next) => {
     }
 }
 
-const updateStudent = async (req, res, next) => {
+const updateclient = async (req, res, next) => {
     try {
         const id = req.params.id;
         const data = req.body;
-        const student =  await firestore.collection('students').doc(id);
-        await student.update(data);
-        res.send('Student record updated successfuly');        
+        const client =  await firestore.collection('clients').doc(id);
+        await client.update(data);
+        res.send('client record updated successfuly');        
     } catch (error) {
         res.status(400).send(error.message);
     }
 }
 
-const deleteStudent = async (req, res, next) => {
+const deleteclient = async (req, res, next) => {
     try {
         const id = req.params.id;
-        await firestore.collection('students').doc(id).delete();
+        await firestore.collection('clients').doc(id).delete();
         res.send('Record deleted successfuly');
     } catch (error) {
         res.status(400).send(error.message);
     }
 }
-
+*/
 module.exports = {
-    addStudent,
-    getAllStudents,
-    getStudent,
-    updateStudent,
-    deleteStudent
+    addClient,
+    getAllClients
 }

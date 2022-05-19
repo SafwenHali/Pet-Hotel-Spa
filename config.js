@@ -20,7 +20,7 @@ const {
 assert(PORT, 'PORT is required');
 assert(HOST, 'HOST is required');
 
-module.exports = {
+module.exports={
     port: PORT,
     host: HOST,
     url: HOST_URL,

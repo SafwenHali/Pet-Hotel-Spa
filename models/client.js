@@ -1,10 +1,11 @@
 class client {
-    constructor(id, Name, lastName, birthday, phoneNumber, cin ) {
+    constructor(id, firstName, lastName, birthday, phoneNumber, cin ) {
             this.id = id;
             this.firstName = firstName;
             this.lastName = lastName;
-            this.classEnrolled = classEnrolled;
+            this.birthday = birthday;
             this.phoneNumber = phoneNumber;
+            this.cin = cin;
 
     }
 }
