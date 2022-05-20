@@ -1,6 +1,17 @@
-const firebase = require('firebase/app');
-const config = require('./config');
+const mysql = require('mysql');
 
-const db = firebase.initializeApp(config.firebaseConfig);
+// create here mysql connection
 
-module.exports = db;
+const dbConn = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'pet_hotel_db'
+});
+
+dbConn.connect(function(error){
+    if(error) throw error;
+    console.log('Database Connected Successfully!!!');
+})
+
+module.exports = dbConn;
