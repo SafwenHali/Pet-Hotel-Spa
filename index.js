@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // setup the server port
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 7000;
 
 // parse request data content type application/x-www-form-rulencoded
 app.use(bodyParser.urlencoded({extended: false}));

@@ -5,12 +5,11 @@ CREATE  TABLE IF NOT EXISTS `user` (
   `email` VARCHAR(255) NOT NULL,
   `phone` VARCHAR(50) NOT NULL,
   `cin` VARCHAR(255) NOT NULL,
+  `Adresse` VARCHAR(255) NOT NULL,
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
-INSERT INTO `node_mysql_crud_db`.`user` (`first_name`, `last_name`, `email`, `phone`, `organization`, `designation`, `salary`, `status`, `is_deleted`, `created_at`) VALUES ('John', 'Doe', 'johndoe@gmail.com', '1234567890', 'Microsoft', 'Full Stack Developer', '50000.00', '1', '0', '2020-18-07 15:30:30');
-
-INSERT INTO `node_mysql_crud_db`.`user` (`first_name`, `last_name`, `email`, `phone`, `organization`, `designation`, `salary`, `status`, `is_deleted`, `created_at`) VALUES ('Jane', 'Doe', 'janedoe@gmail.com', '9876543210', 'Google', 'Software Engineer', '44500.00', '1', '0', '2020-18-07 15:30:30');
+INSERT INTO `pet_hotel_db`.`user` (`first_name`, `last_name`, `email`, `phone`, `cin`, `adresse`, `created_at`) VALUES ('John', 'Doe', 'johndoe@gmail.com', '1234567890', '00112233', 'dev house 0000', '2022-19-05 15:30:30');

@@ -1,4 +1,4 @@
-var dbConn  = require('../Database');
+var dbConn  = require('../config');
 
 var User = function(user){
     this.first_name     =   user.first_name;
@@ -22,5 +22,58 @@ User.createUser = (userReqData, result) =>{
         }
     })
 }
+
+// get all users
+User.getAllUsers = (result) =>{
+    dbConn.query('SELECT * FROM user', (err, res)=>{
+        if(err){
+            console.log('Error while getting users', err);
+            result(null,err);
+        }else{
+            console.log('Get all users successfully');
+            result(null,res);
+        }
+    })
+}
+
+// get user by ID from DB
+User.getUserByID = (id, result)=>{
+    dbConn.query('SELECT * FROM user WHERE id=?', id, (err, res)=>{
+        if(err){
+            console.log('Error while getting user by id', err);
+            result(null, err);
+        }else{
+            result(null, res);
+        }
+    })
+}
+
+// update User
+User.updateUser = (id, userReqData, result)=>{
+    dbConn.query("UPDATE user SET first_name=?,last_name=?,email=?,phone=?,cin=?,adresse=? WHERE id = ?", 
+            [userReqData.first_name,userReqData.last_name,userReqData.email,userReqData.phone,userReqData.cin,userReqData.adresse, id], (err, res)=>{
+        if(err){
+            console.log('Error while updating the user');
+            result(null, err);
+        }else{
+            console.log("User updated successfully");
+            result(null, res);
+        }
+    });
+}
+
+// delete user
+User.deleteUser = (id, result)=>{
+    dbConn.query('DELETE FROM user WHERE id=?', [id], (err, res)=>{
+        if(err){
+            console.log('Error while deleting the user');
+            result(null, err);
+        }else{
+            console.log('User Deleted');
+             result(null, res);
+        }
+    });
+}
+
 
 module.exports = User;
