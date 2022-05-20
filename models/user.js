@@ -5,7 +5,9 @@ var User = function(user){
     this.last_name      =   user.last_name;
     this.email          =   user.email;
     this.phone          =   user.phone;
+    this.password       =   user.password;
     this.cin            =   user.cin;
+    this.adresse        =   user.adresse;
     this.created_at     =   new Date();
     this.updated_at     =   new Date();
 }
@@ -41,6 +43,18 @@ User.getUserByID = (id, result)=>{
     dbConn.query('SELECT * FROM user WHERE id=?', id, (err, res)=>{
         if(err){
             console.log('Error while getting user by id', err);
+            result(null, err);
+        }else{
+            result(null, res);
+        }
+    })
+}
+
+// get user by Email
+User.getUserByUserEmail = (email, result) =>{
+    dbConn.query('SELECT * FROM user WHERE email=?', email, (err, res)=>{
+        if(err){
+            console.log('Error while getting user by email', err);
             result(null, err);
         }else{
             result(null, res);

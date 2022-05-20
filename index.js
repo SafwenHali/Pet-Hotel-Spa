@@ -18,8 +18,10 @@ app.get('/', (req, res)=>{
     res.send('Hello World');
 });
 
-// create user routes
+// Import routes
 const userRoutes=require('./routes/user');
+
+// Routes Middleware
 app.use('/api/user', userRoutes);
 
 // listen to the port

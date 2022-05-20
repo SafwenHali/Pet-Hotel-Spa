@@ -1,10 +1,18 @@
 const UserModel = require('../models/user');
 
+//const { hashSync, genSaltSync } = require("bcrypt");
+
+//const { sign } = require("jsonwebtoken");
+
 // create new user
 exports.createNewUser = (req, res) =>{
-    const userReqData = new UserModel(req.body);
+    const body = req.body;
+    //crypt password
+    //const salt = genSaltSync(10);
+   // body.password = hashSync(body.password, salt);
+
+    const userReqData = new UserModel(body);
     console.log('userReqData', userReqData);
-    // check null
     if(req.body.constructor === Object && Object.keys(req.body).length === 0){
         res.send(400).send({success: false, message: 'Please fill all fields'});
     }else{
@@ -12,8 +20,9 @@ exports.createNewUser = (req, res) =>{
             if(err)
             res.send(err);
             res.json({status: true, message: 'User Created Successfully', data: user.insertId})
-        })
+        });
     }
+    
 }
 
 // get all users list
@@ -63,3 +72,26 @@ exports.deleteUser = (req, res)=>{
         res.json({success:true, message: 'User deleted successully!'});
     })
 }
+
+// get User by email
+exports.getUserByEmail = (req, res)=>{
+    UserModel.getUserByUserEmail(req.params.email, (err, user)=>{
+        if(err)
+        res.send(err);
+        console.log('single user data',user);
+        res.send(user);
+    })
+}
+
+exports.login = (req, res) => {
+    UserModel.getUserByUserEmail(req.params.email, (err, user)=>{
+        if(err)
+        res.send(err);
+        if(req.params.password===user.password){
+            res.send(user);
+        }
+        else{
+            res.json({ message: '3asba'});
+        }
+    })
+  }
