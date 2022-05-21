@@ -1,0 +1,95 @@
+CREATE  TABLE IF NOT EXISTS `user` (
+  `id` BIGINT UNSIGNED AUTO_INCREMENT,
+  `first_name` VARCHAR(255) NOT NULL,
+  `last_name` VARCHAR(255) NOT NULL,
+  `birthday` DATE NOT NULL,
+  `email` VARCHAR(255) NOT NULL,
+  `phone` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(50) NOT NULL,
+  `cin` VARCHAR(255) NOT NULL,
+  `Adresse` VARCHAR(255) NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`))
+  ENGINE = InnoDB;
+
+CREATE  TABLE IF NOT EXISTS `type_pet` (
+  `type_id` BIGINT UNSIGNED AUTO_INCREMENT,
+  `type_name` VARCHAR(255) NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`type_id`))
+  ENGINE = InnoDB;
+
+CREATE  TABLE IF NOT EXISTS `pet` (
+  `pet_id` BIGINT UNSIGNED AUTO_INCREMENT,
+  `pet_name` VARCHAR(255) NOT NULL,
+  `birthday` DATE NOT NULL,
+  `owner_id` BIGINT UNSIGNED NOT NULL,
+  `type` BIGINT UNSIGNED NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`pet_id`),
+  FOREIGN KEY(type) REFERENCES type_pet(type_id),
+  FOREIGN KEY(owner_id) REFERENCES user(id))
+  ENGINE = InnoDB;
+
+CREATE  TABLE IF NOT EXISTS `service` (
+  `service_id` BIGINT UNSIGNED AUTO_INCREMENT,
+  `service_name` VARCHAR(255) NOT NULL,
+  `pet_type` BIGINT UNSIGNED NOT NULL,
+  `service_type`TINYINT(1) NOT NULL,
+  `service_price`VARCHAR(255) NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`service_id`),
+  FOREIGN KEY (pet_type) REFERENCES type_pet (type_id))
+  ENGINE = InnoDB;
+
+  CREATE  TABLE IF NOT EXISTS `stay` (
+  `stay_id` BIGINT UNSIGNED AUTO_INCREMENT,
+  `stay_name` VARCHAR(255) NOT NULL,
+  `pet_type` BIGINT UNSIGNED NOT NULL,
+  `description` VARCHAR(255) NOT NULL,
+  `oneday_price` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`stay_id`),
+  FOREIGN KEY (pet_type) REFERENCES type_pet (type_id))
+  ENGINE = InnoDB;
+
+CREATE  TABLE IF NOT EXISTS `registerservice` (
+  `register_id` BIGINT UNSIGNED AUTO_INCREMENT,
+  `service_id` BIGINT UNSIGNED NOT NULL,
+  `pet_id` BIGINT UNSIGNED NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `expires_at` DATETIME NOT NULL,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`register_id`),
+  FOREIGN KEY (service_id) REFERENCES service (service_id),
+  FOREIGN KEY (pet_id) REFERENCES pet (pet_id))
+  ENGINE = InnoDB;
+
+  CREATE  TABLE IF NOT EXISTS `bookservice` (
+  `bookserv_id` BIGINT UNSIGNED AUTO_INCREMENT,
+  `service_id` BIGINT UNSIGNED NOT NULL,
+  `pet_id` BIGINT UNSIGNED NOT NULL,
+  `date` DATETIME NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`booksev_id`),
+  FOREIGN KEY (service_id) REFERENCES service (service_id),
+  FOREIGN KEY (pet_id) REFERENCES pet (pet_id))
+  ENGINE = InnoDB;
+
+  CREATE  TABLE IF NOT EXISTS `bookstay` (
+  `bookstay_id` BIGINT UNSIGNED AUTO_INCREMENT,
+  `stay_id` BIGINT UNSIGNED NOT NULL,
+  `pet_id` BIGINT UNSIGNED NOT NULL,
+  `begindate` DATETIME NOT NULL,
+  `enddate` DATETIME NOT NULL,
+  `price` VARCHAR(255) NOT NULL,
+  `created_at` DATETIME NOT NULL,
+  `updated_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`bookstay_id`),
+  FOREIGN KEY (stay_id) REFERENCES stay (stay_id),
+  FOREIGN KEY (pet_id) REFERENCES pet (pet_id))
+  ENGINE = InnoDB;

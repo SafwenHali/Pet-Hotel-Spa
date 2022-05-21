@@ -22,7 +22,7 @@ router.put('/:id', userController.updateUser);
 router.delete('/:id',userController.deleteUser);
 
 
-// create new user
+// login user
 router.post("/login", userController.login);
 
 module.exports = router;
