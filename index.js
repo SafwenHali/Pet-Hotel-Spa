@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const app = express();
 
 // setup the server port
-const port = process.env.PORT || 7000;
+const port = 7000;
 
 // parse request data content type x-www-form-rulencoded /////// json
 app.use(bodyParser.urlencoded({extended: false}));
@@ -13,13 +13,13 @@ app.use(bodyParser.json());
 
 // Import routes
 const userRoutes=require('./routes/user');
-const typepetRoutes=require('./routes/type_pet');
+/*const typepetRoutes=require('./routes/type_pet');
 const petRoutes=require('./routes/pet');
 const serviceRoutes=require('./routes/service');
 const stayRoutes=require('./routes/stay');
 const bookservRoutes=require('./routes/bookservice');
 const regservRoutes=require('./routes/registerservice');
-const bookstayRoutes=require('./routes/bookstay');
+const bookstayRoutes=require('./routes/bookstay');*/
 
 // Routes Middleware
 app.use('/api/user', userRoutes);
